@@ -1,19 +1,30 @@
-// Body
-$body-bg: #f8fafc;
+* {
+    margin: 0; padding: 0; z-index: 1; font-family: 'DINPro', Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+body {
+    overflow-x: hidden;
+}
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+.w-5, .px-2 {
+    display: none;
+}
+
+//DASHBOARD
+//COLORS
+//elements colors
+$dashboard-body-color: #262a2d;
+$dashboard-scroll-color: #b4b4b4;
+$dashboard-menu-color: #383c3d;
+$dashboard-menu-title-active-color: #4e5455;
+
+//fonts color
+$dashboard-font-title-color: #b4b4b4;
+$dashboard-font-main-color: #b4b4b4;
+$dashboard-font-link-hover-color: #ff975c;
+
+
+//fonts sizes
+$font-size-small: 12px;
+$font-size-normal: 14px;

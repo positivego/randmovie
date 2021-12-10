@@ -1,0 +1,120 @@
+@import 'variables';
+
+body {
+    background-color: $dashboard-body-color;
+}
+
+::-webkit-scrollbar {
+    width: 3px; height: 3px; background-color: $dashboard-body-color;
+    z-index: 5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $dashboard-scroll-color; border-radius: 3px; 
+    z-index: 5;
+}
+
+/*-----------------------------------------
+                   Меню
+-----------------------------------------*/
+
+.dashboard__menu {
+    position: fixed; width: 200px; height: 100vh; z-index: 2;
+    overflow-x: hidden;
+    background-color: $dashboard-menu-color;
+    font-size: $font-size-small;
+
+    .menu__group {
+        position: relative; width: 100%;
+        margin-top: 20px;
+
+        .group__title {
+            position: relative;
+            margin-bottom: 5px; margin-left: 10px;
+            color: $dashboard-font-title-color; text-transform: uppercase;
+            cursor: default;
+        }
+
+        .group__item {
+            position: relative; margin: 2px 0;
+        }
+
+        .item__title {
+            position: relative; 
+            display: flex; flex-direction: row; align-items: center;
+            padding-left: 10px;
+        }
+
+        .item__image {
+            position: relative; width: 10px; height: 10px;
+            display: flex !important; align-items: center; justify-content: flex-start;
+        }
+
+        .item__image img {
+            display: flex;
+            position: absolute; width: 80%; height: 80%;
+        }
+
+        a {
+            position: relative;
+            padding: 5px 5px 5px 10px;
+            color: white; font-size: $font-size-small;
+            text-decoration: none; opacity: .9;
+
+            &:hover {
+                text-decoration: underline; cursor: pointer;
+            }
+        }
+
+        .links__list {
+            position: relative;
+            display: none; flex-direction: column; align-items: flex-start
+        }
+
+        .link {
+            position: relative; max-width: 140px; margin-left: 30px;
+            font-size: $font-size-small; color: $dashboard-font-main-color;
+            cursor: pointer;
+
+            &:first-child {
+                margin-top: 5px;
+            }
+
+            &:last-child {
+                margin-bottom: 5px;
+            }
+
+            p {
+                position: relative;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            }
+
+            &:hover {
+                color: $dashboard-font-link-hover-color;
+            }
+        }
+
+        .active {
+            background-color: $dashboard-menu-title-active-color;
+        }
+        
+        .open {
+            display: flex;
+        }
+
+        .item__title .open img {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+.dashboard {
+    position: relative; width: calc(100% - 200px); margin-left: 200px;
+}
+
+.dashboard__head {
+    background-color: #7c633c;
+    height: 200px;
+    position: relative;
+    width: 100%;
+}
