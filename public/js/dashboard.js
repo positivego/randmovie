@@ -17459,7 +17459,14 @@ __webpack_require__.r(__webpack_exports__);
     DashboardHead: _dashboard_head_DashboardHead_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      mountedLink: null
+    };
+  },
+  methods: {
+    setMountedLink: function setMountedLink(link) {
+      this.mountedLink = link;
+    }
   }
 });
 
@@ -17505,8 +17512,9 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
+  emits: ['checkMountedLink'],
   mounted: function mounted() {
-    this.$store.state.menu.activelink = this.$route.name;
+    this.$emit('checkMountedLink', this.$route.name);
     console.log(this.type, this.title);
   },
   watch: {
@@ -17546,26 +17554,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'dashboard-menu',
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
-    changeActiveLink: 'menu/changeActiveLink',
-    openOrCloseList: 'menu/openOrCloseList'
-  })), {}, {
-    checkList: function checkList(listName) {
-      return this.$store.state.menu.activeLists.find(function (el) {
-        return el === listName;
+  props: {
+    mountedLink: String
+  },
+  data: function data() {
+    return {
+      activeLink: null,
+      activeLists: []
+    };
+  },
+  methods: {
+    changeActiveLink: function changeActiveLink(link) {
+      if (this.activelink !== link) this.activeLink = link;
+    },
+    openOrCloseList: function openOrCloseList(list) {
+      if (!this.activeLists.find(function (el) {
+        return el === list;
+      })) {
+        return this.activeLists.push(list);
+      } else {
+        return this.activeLists.splice(this.activeLists.indexOf(list), 1);
+      }
+    },
+    checkList: function checkList(list) {
+      return this.activeLists.find(function (el) {
+        return el === list;
       });
     }
-  })
+  },
+  watch: {
+    mountedLink: function mountedLink(link) {
+      this.activeLink = link;
+    }
+  }
 });
 
 /***/ }),
@@ -17595,7 +17618,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_menu), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_breadcrumb), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_head), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])], 64
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_menu, {
+    mountedLink: $data.mountedLink
+  }, null, 8
+  /* PROPS */
+  , ["mountedLink"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_breadcrumb), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_head), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, {
+    onCheckMountedLink: $options.setMountedLink
+  }, null, 8
+  /* PROPS */
+  , ["onCheckMountedLink"])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -17711,7 +17742,7 @@ var _hoisted_4 = {
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
@@ -17725,7 +17756,7 @@ var _hoisted_7 = {
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
@@ -17739,7 +17770,7 @@ var _hoisted_10 = {
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
@@ -17753,7 +17784,7 @@ var _hoisted_13 = {
 var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
@@ -17767,7 +17798,7 @@ var _hoisted_16 = {
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
@@ -17781,7 +17812,7 @@ var _hoisted_19 = {
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
@@ -17803,7 +17834,7 @@ var _hoisted_24 = {
 };
 
 var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/triangle.svg"
+  src: "/assets/images/dashboard/triangle.png"
 }, null, -1
 /* HOISTED */
 );
@@ -17836,7 +17867,7 @@ var _hoisted_32 = {
 };
 
 var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/triangle.svg"
+  src: "/assets/images/dashboard/triangle.png"
 }, null, -1
 /* HOISTED */
 );
@@ -17869,7 +17900,7 @@ var _hoisted_40 = {
 };
 
 var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/triangle.svg"
+  src: "/assets/images/dashboard/triangle.png"
 }, null, -1
 /* HOISTED */
 );
@@ -17902,7 +17933,7 @@ var _hoisted_48 = {
 };
 
 var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/triangle.svg"
+  src: "/assets/images/dashboard/triangle.png"
 }, null, -1
 /* HOISTED */
 );
@@ -17947,26 +17978,26 @@ var _hoisted_58 = {
 var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "item__image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/storage/dashboard/home.svg"
+  src: "/assets/images/dashboard/home.png"
 })], -1
 /* HOISTED */
 );
 
 var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Основные настройки");
 
-var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"menu__group\"><div class=\"group__title\"><p>Ссылки</p></div><div class=\"group__item\"><div class=\"item__title\"><div class=\"item__image\"><img src=\"/storage/dashboard/home.svg\"></div><a href=\"/\">На главную</a></div></div><div class=\"group__item\"><div class=\"item__title\"><div class=\"item__image\"><img src=\"/storage/dashboard/home.svg\"></div><a href=\"\">Выйти</a></div></div></div>", 1);
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"menu__group\"><div class=\"group__title\"><p>Ссылки</p></div><div class=\"group__item\"><div class=\"item__title\"><div class=\"item__image\"><img src=\"/assets/images/dashboard/home.png\"></div><a href=\"/\">На главную</a></div></div><div class=\"group__item\"><div class=\"item__title\"><div class=\"item__image\"><img src=\"/assets/images/dashboard/home.png\"></div><a href=\"\">Выйти</a></div></div></div>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.index'
+      active: $data.activeLink === 'dashboard.index'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "/auth/dashboard",
     onClick: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.index');
+      return $options.changeActiveLink('dashboard.index');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -17979,12 +18010,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.movies'
+      active: $data.activeLink === 'dashboard.movies'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "/auth/dashboard/movies",
     onClick: _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.movies');
+      return $options.changeActiveLink('dashboard.movies');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -17997,12 +18028,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.selections'
+      active: $data.activeLink === 'dashboard.compilations'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard/users",
+    to: "/auth/dashboard/compilations",
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.selections');
+      return $options.changeActiveLink('dashboard.compilations');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18015,12 +18046,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.users'
+      active: $data.activeLink === 'dashboard.users'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "/auth/dashboard/users",
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.users');
+      return $options.changeActiveLink('dashboard.users');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18033,12 +18064,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.comments'
+      active: $data.activeLink === 'dashboard.comments'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard/users",
+    to: "/auth/dashboard/comments",
     onClick: _cache[4] || (_cache[4] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.comments');
+      return $options.changeActiveLink('dashboard.comments');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18051,12 +18082,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.ratings'
+      active: $data.activeLink === 'dashboard.ratings'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard/users",
+    to: "/auth/dashboard/ratings",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.ratings');
+      return $options.changeActiveLink('dashboard.ratings');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18069,19 +18100,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["item__title", [{
-      active: _ctx.$store.state.menu.activelink === 'dashboard.genres'
+      active: $data.activeLink === 'dashboard.genres'
     }, {
       open: $options.checkList('list.genres') ? true : ''
     }]])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "item__image",
     onClick: _cache[6] || (_cache[6] = function ($event) {
-      return _ctx.openOrCloseList('list.genres');
+      return $options.openOrCloseList('list.genres');
     })
   }, _hoisted_26), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard",
+    to: "/auth/dashboard/genres",
     onClick: _cache[7] || (_cache[7] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.genres');
+      return $options.changeActiveLink('dashboard.genres');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18100,19 +18131,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["item__title", [{
-      active: _ctx.$store.state.menu.activelink === 'dashboard.actors'
+      active: $data.activeLink === 'dashboard.actors'
     }, {
       open: $options.checkList('list.actors') ? true : ''
     }]])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "item__image",
     onClick: _cache[8] || (_cache[8] = function ($event) {
-      return _ctx.openOrCloseList('list.actors');
+      return $options.openOrCloseList('list.actors');
     })
   }, _hoisted_34), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard",
+    to: "/auth/dashboard/actors",
     onClick: _cache[9] || (_cache[9] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.actors');
+      return $options.changeActiveLink('dashboard.actors');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18131,19 +18162,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["item__title", [{
-      active: _ctx.$store.state.menu.activelink === 'dashboard.directors'
+      active: $data.activeLink === 'dashboard.directors'
     }, {
       open: $options.checkList('list.directors') ? true : ''
     }]])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "item__image",
     onClick: _cache[10] || (_cache[10] = function ($event) {
-      return _ctx.openOrCloseList('list.directors');
+      return $options.openOrCloseList('list.directors');
     })
   }, _hoisted_42), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard",
+    to: "/auth/dashboard/directors",
     onClick: _cache[11] || (_cache[11] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.directors');
+      return $options.changeActiveLink('dashboard.directors');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18162,19 +18193,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["item__title", [{
-      active: _ctx.$store.state.menu.activelink === 'dashboard.countries'
+      active: $data.activeLink === 'dashboard.countries'
     }, {
       open: $options.checkList('list.countries') ? true : ''
     }]])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "item__image",
     onClick: _cache[12] || (_cache[12] = function ($event) {
-      return _ctx.openOrCloseList('list.countries');
+      return $options.openOrCloseList('list.countries');
     })
   }, _hoisted_50), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard",
+    to: "/auth/dashboard/countries",
     onClick: _cache[13] || (_cache[13] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.countries');
+      return $options.changeActiveLink('dashboard.countries');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18193,12 +18224,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, [_hoisted_57, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["group__item", {
-      active: _ctx.$store.state.menu.activelink === 'dashboard.settings'
+      active: $data.activeLink === 'dashboard.settings'
     }])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [_hoisted_59, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/auth/dashboard",
+    to: "/auth/dashboard/settings",
     onClick: _cache[14] || (_cache[14] = function ($event) {
-      return _ctx.changeActiveLink('dashboard.settings');
+      return $options.changeActiveLink('dashboard.settings');
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -18246,12 +18277,76 @@ var routes = [{
     title: 'Кино'
   }
 }, {
+  path: '/auth/dashboard/compilations',
+  name: 'dashboard.compilations',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table3',
+    title: 'Подборки'
+  }
+}, {
   path: '/auth/dashboard/users',
   name: 'dashboard.users',
   component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   props: {
-    type: 'table3',
+    type: 'table4',
     title: 'Пользователи'
+  }
+}, {
+  path: '/auth/dashboard/comments',
+  name: 'dashboard.comments',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table5',
+    title: 'Комментарии'
+  }
+}, {
+  path: '/auth/dashboard/ratings',
+  name: 'dashboard.ratings',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table6',
+    title: 'Оценки'
+  }
+}, {
+  path: '/auth/dashboard/genres',
+  name: 'dashboard.genres',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table7',
+    title: 'Жанры'
+  }
+}, {
+  path: '/auth/dashboard/actors',
+  name: 'dashboard.actors',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table8',
+    title: 'Актеры'
+  }
+}, {
+  path: '/auth/dashboard/directors',
+  name: 'dashboard.directors',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table9',
+    title: 'Режиссеры'
+  }
+}, {
+  path: '/auth/dashboard/countries',
+  name: 'dashboard.countries',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table10',
+    title: 'Страны'
+  }
+}, {
+  path: '/auth/dashboard/settings',
+  name: 'dashboard.settings',
+  component: _components_dashboard_content_DashboardContent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: {
+    type: 'table11',
+    title: 'Настройки'
   }
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({

@@ -84,7 +84,8 @@ body {
 }
 .dashboard__menu .menu__group a {
   position: relative;
-  padding: 5px 5px 5px 10px;
+  padding: 5px;
+  margin-left: 5px;
   color: white;
   font-size: 12px;
   text-decoration: none;
@@ -129,7 +130,7 @@ body {
 .dashboard__menu .menu__group .open {
   display: flex;
 }
-.dashboard__menu .menu__group .item__title .open img {
+.dashboard__menu .menu__group .open img {
   transform: rotate(90deg);
 }
 

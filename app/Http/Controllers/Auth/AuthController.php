@@ -3,11 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\auth\RegistrationRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function registration(RegistrationRequest $request)
+    {
+        $credentials = $request->credentials;
+
+        $credentials['password'] = Hash::make( $credentials['password']);
+
+        User::create($credentials);
+
+        return response()->json('user created', 201);
+    }
+
     /**
      * Get a JWT via given credentials.
      *

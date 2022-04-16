@@ -18,9 +18,13 @@ export default {
         }
     },
 
+    emits: [
+        'checkMountedLink',
+    ],
+
     mounted()
     {
-        this.$store.state.menu.activelink = this.$route.name
+        this.$emit('checkMountedLink', this.$route.name)
         console.log(this.type, this.title);
     },
 

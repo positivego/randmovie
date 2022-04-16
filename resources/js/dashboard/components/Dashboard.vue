@@ -1,37 +1,44 @@
 <template>
 
-    <dashboard-menu></dashboard-menu>
+    <dashboard-menu :mountedLink="mountedLink"></dashboard-menu>
 
     <div class="dashboard">
         <dashboard-breadcrumb></dashboard-breadcrumb>
         <dashboard-head></dashboard-head>
-        <router-view></router-view>
+        <router-view @checkMountedLink="setMountedLink"></router-view>
     </div>
 
 </template>
 
 <script>
 
-    import DashboardMenu from './dashboard.menu/DashboardMenu.vue'
-    import DashboardBreadcrumb from './dashboard.breadcrumb/DashboardBreadcrumb.vue'
-    import DashboardHead from './dashboard.head/DashboardHead.vue'
+import DashboardMenu from './dashboard.menu/DashboardMenu.vue'
+import DashboardBreadcrumb from './dashboard.breadcrumb/DashboardBreadcrumb.vue'
+import DashboardHead from './dashboard.head/DashboardHead.vue'
 
-    export default {
+export default {
 
-        name: 'dashboard',
+    name: 'dashboard',
 
-        components: {
-            DashboardMenu,
-            DashboardBreadcrumb,
-            DashboardHead
-        },
+    components: {
+        DashboardMenu,
+        DashboardBreadcrumb,
+        DashboardHead
+    },
 
-        data() {
-            return {
-                
-            }
-        },
+    data() {
+        return {
+            mountedLink: null,
+        }
+    },
 
+    methods: {
+        setMountedLink(link)
+        {
+            this.mountedLink = link
+        }
     }
+
+}
 
 </script>

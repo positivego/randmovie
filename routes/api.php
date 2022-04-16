@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
 
+    Route::post('registration', [AuthController::class, 'registration']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('refresh', [AuthController::class, 'refresh']);
 

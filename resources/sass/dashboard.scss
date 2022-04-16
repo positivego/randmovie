@@ -57,7 +57,7 @@ body {
 
         a {
             position: relative;
-            padding: 5px 5px 5px 10px;
+            padding: 5px; margin-left: 5px;
             color: white; font-size: $font-size-small;
             text-decoration: none; opacity: .9;
 
@@ -102,7 +102,7 @@ body {
             display: flex;
         }
 
-        .item__title .open img {
+        .open img {
             transform: rotate(90deg);
         }
     }
